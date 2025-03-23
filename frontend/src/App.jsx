@@ -4,8 +4,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import SignUp from './components/SignUp'
 import SignIn from "./components/SignIn";
 import Home from './components/Home'
+import Help from "./components/Help";
 
 const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/signIn" />;
+};
+
+const ProtectedHelpRoute = ({ children }) => {
   const { user } = useAuth();
   return user ? children : <Navigate to="/signIn" />;
 };
@@ -19,6 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
         </Routes>
       </Router>
     </AuthProvider>
